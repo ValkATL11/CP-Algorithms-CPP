@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.16)
+project(CP_Algorithms_CPP LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS ON)
+
+enable_testing()
+file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/*/test*.cpp")
+foreach(test_source IN LISTS TEST_SOURCES)
+    file(RELATIVE_PATH test_rel "${CMAKE_CURRENT_SOURCE_DIR}" "${test_source}")
+    string(REPLACE "/" "_" test_name "${test_rel}")
+    string(REPLACE ".cpp" "" test_name "${test_name}")
+    add_executable("${test_name}" "${test_source}")
+    target_compile_options("${test_name}" PRIVATE -O2 -Wall -Wextra)
+    add_test(NAME "${test_name}" COMMAND "${test_name}")
+endforeach()

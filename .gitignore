@@ -1,0 +1,11 @@
+build/
+cmake-build-*/
+*.exe
+*.out
+*.o
+*.obj
+*.pdb
+*.ilk
+.vscode/
+.idea/
+.DS_Store
